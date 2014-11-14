@@ -1,44 +1,28 @@
 package ch1.ds;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Q1_8 {
 	public static void main(String[] args){
 		Scanner in = new Scanner(System.in);
-		int m=3;
-		int n=4;
-		int[][] matrix = new int[m][n];
-		//I could set the values to other values than 0 and at the end change them to 0 to avoid conflict,
-		//but I decided to keep the rows and columns that are going to be 0ed.
-		ArrayList<Integer> rows = new ArrayList<Integer>();
-		ArrayList<Integer> cols = new ArrayList<Integer>();
-		for(int i=0; i<m; i++){
-			for(int j=0; j<n; j++){
-				matrix[i][j]= in.nextInt();
-				if(matrix[i][j] == 0){
-					rows.add(i);
-					cols.add(j);
-				}
+		String str1= in.nextLine();
+		String str2= in.nextLine();
+		
+		for(int i=0; i<str1.length();  i++){
+			String test = str2.substring(i+1, str2.length())+str2.substring(0, i);
+			if(isSubString(str1, test)){
+				System.out.println("yes");
+				return;
 			}
 		}
-		//first 0ing rows then cols
-		for(int i=0; i<rows.size(); i++){
-			for(int j =0; j<n; j++){
-				matrix[rows.get(i)][j]= 0;
-			}
+		System.out.println("no");
+		
+	}
+	public static Boolean isSubString(String bigger, String smaller){
+		//System.out.println(new String(bigger)+"|"+new String(smaller));
+		if(bigger.contains(smaller)){ //just for simplgying, otherwise 2d loop with a window
+			return true;
 		}
-		for(int i=0; i<cols.size(); i++){
-			for(int j =0; j<m; j++){
-				matrix[j][cols.get(i)]= 0;
-			}
-		}
-		//output
-		for(int i=0; i<m; i++){
-			for(int j=0; j<n; j++){
-				System.out.print(matrix[i][j]+" ");
-			}
-			System.out.println();
-		}
+		return false;
 	}
 }
